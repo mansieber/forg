@@ -1,0 +1,8 @@
+1. Alle add- und edit-Button müssen entsprechend dem Zustand des zugehörigen Modells aktiviert/deaktiviert werden.
+2. MainWindow::openDataBase() prüfen. Wirklich stabil selbst wenn Datenbank nicht zugreifbar?
+3. Alle Dialoge und das MainWIndow müssen funktionieren selbst wenn die Tabellen leer sind.
+4. Alle Listen brauchen ein update wenn sich etwas ändert (siehe Buch Seite 334).
+5. Die Jahresanalyse berechnet die Anzahl der Angeltage falsch (siehe 2016)
+6. Die Catches Spalte im MainWindow erscheint nicht immer (z.B. nicht nach Start). Die
+   Spalte erscheint erst, nachdem eine Session angeschaut wurde.
+ 

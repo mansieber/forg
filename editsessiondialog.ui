@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EditSessionDialog</class>
+ <widget class="QDialog" name="EditSessionDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>510</width>
+    <height>381</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Edit Session</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="labelStartTime">
+       <property name="text">
+        <string>&amp;Start time:</string>
+       </property>
+       <property name="buddy">
+        <cstring>editStartTime</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QDateTimeEdit" name="editStartTime">
+       <property name="dateTime">
+        <datetime>
+         <hour>0</hour>
+         <minute>0</minute>
+         <second>0</second>
+         <year>2019</year>
+         <month>1</month>
+         <day>1</day>
+        </datetime>
+       </property>
+       <property name="time">
+        <time>
+         <hour>0</hour>
+         <minute>0</minute>
+         <second>0</second>
+        </time>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="labelLocation">
+       <property name="text">
+        <string>&amp;Location:</string>
+       </property>
+       <property name="buddy">
+        <cstring>comboLocation</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="labelWeather">
+       <property name="text">
+        <string>&amp;Weather:</string>
+       </property>
+       <property name="buddy">
+        <cstring>comboWeather</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="labelPressure">
+       <property name="text">
+        <string>Air &amp;pressure:</string>
+       </property>
+       <property name="buddy">
+        <cstring>editPressure</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="editPressure"/>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="labelAirTemperature">
+       <property name="text">
+        <string>A&amp;ir temperature:</string>
+       </property>
+       <property name="buddy">
+        <cstring>editAirTemperature</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="QLineEdit" name="editAirTemperature"/>
+     </item>
+     <item row="9" column="0">
+      <widget class="QLabel" name="labelWindStrength">
+       <property name="text">
+        <string>Wind stren&amp;gth:</string>
+       </property>
+       <property name="buddy">
+        <cstring>editWindStrength</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
+      <widget class="QLineEdit" name="editWindStrength"/>
+     </item>
+     <item row="11" column="0">
+      <widget class="QLabel" name="labelRating">
+       <property name="text">
+        <string>Ratin&amp;g:</string>
+       </property>
+       <property name="buddy">
+        <cstring>spinBoxRating</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="12" column="0">
+      <widget class="QLabel" name="labelDescription">
+       <property name="text">
+        <string>&amp;Description:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+       </property>
+       <property name="buddy">
+        <cstring>editDescription</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="2">
+      <widget class="QLabel" name="labelPressureChange">
+       <property name="text">
+        <string>Pressure &amp;change:</string>
+       </property>
+       <property name="buddy">
+        <cstring>editPressureChange</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="3">
+      <widget class="QLineEdit" name="editPressureChange"/>
+     </item>
+     <item row="7" column="3">
+      <widget class="QLineEdit" name="editWaterTemperature"/>
+     </item>
+     <item row="7" column="2">
+      <widget class="QLabel" name="labelWaterTemperature">
+       <property name="text">
+        <string>W&amp;ater temperature:</string>
+       </property>
+       <property name="buddy">
+        <cstring>editWaterTemperature</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1" colspan="3">
+      <widget class="QComboBox" name="comboLocation"/>
+     </item>
+     <item row="9" column="2">
+      <widget class="QLabel" name="labelWindDirection">
+       <property name="text">
+        <string>Wind Directi&amp;on:</string>
+       </property>
+       <property name="buddy">
+        <cstring>spinBoxWindDirection</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="12" column="1" colspan="3">
+      <widget class="QPlainTextEdit" name="editDescription"/>
+     </item>
+     <item row="0" column="3">
+      <widget class="QDateTimeEdit" name="editEndTime">
+       <property name="date">
+        <date>
+         <year>2019</year>
+         <month>1</month>
+         <day>1</day>
+        </date>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLabel" name="labelEndTime">
+       <property name="text">
+        <string>&amp;End time:</string>
+       </property>
+       <property name="buddy">
+        <cstring>editEndTime</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QComboBox" name="comboWeather"/>
+     </item>
+     <item row="3" column="3">
+      <widget class="QDateTimeEdit" name="editTimeHighTide"/>
+     </item>
+     <item row="3" column="2">
+      <widget class="QLabel" name="labelHighTide">
+       <property name="text">
+        <string>&amp;High tide:</string>
+       </property>
+       <property name="buddy">
+        <cstring>editTimeHighTide</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="2" colspan="2">
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="11" column="1">
+      <widget class="QSpinBox" name="spinBoxRating">
+       <property name="toolTip">
+        <string extracomment="0 = bad"/>
+       </property>
+       <property name="maximum">
+        <number>5</number>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="3">
+      <widget class="QSpinBox" name="spinBoxWindDirection">
+       <property name="suffix">
+        <string> Grad</string>
+       </property>
+       <property name="maximum">
+        <number>355</number>
+       </property>
+       <property name="singleStep">
+        <number>5</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QDialogButtonBox" name="dialogButtonBox">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>editStartTime</tabstop>
+  <tabstop>editEndTime</tabstop>
+  <tabstop>comboLocation</tabstop>
+  <tabstop>comboWeather</tabstop>
+  <tabstop>editTimeHighTide</tabstop>
+  <tabstop>editPressure</tabstop>
+  <tabstop>editPressureChange</tabstop>
+  <tabstop>editAirTemperature</tabstop>
+  <tabstop>editWaterTemperature</tabstop>
+  <tabstop>editWindStrength</tabstop>
+  <tabstop>spinBoxWindDirection</tabstop>
+  <tabstop>spinBoxRating</tabstop>
+  <tabstop>editDescription</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>dialogButtonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>EditSessionDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>497</x>
+     <y>368</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EditLocationDialog</class>
+ <widget class="QDialog" name="EditLocationDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>457</width>
+    <height>335</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Edit Location</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="1" column="2">
+      <widget class="QLabel" name="labelLongitudeNW">
+       <property name="text">
+        <string>Longitude NW:</string>
+       </property>
+       <property name="buddy">
+        <cstring>editLongitudeNW</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3" colspan="3">
+      <widget class="QLineEdit" name="editLongitudeSE"/>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="labelPath">
+       <property name="text">
+        <string>&amp;Path:</string>
+       </property>
+       <property name="buddy">
+        <cstring>editPath</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="labelName">
+       <property name="text">
+        <string>&amp;Name:</string>
+       </property>
+       <property name="buddy">
+        <cstring>editName</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="labelLatitudeSE">
+       <property name="text">
+        <string>Latitude SE:</string>
+       </property>
+       <property name="buddy">
+        <cstring>editLatitudeSE</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="labelLatitudeNW">
+       <property name="text">
+        <string>Latitude NW:</string>
+       </property>
+       <property name="buddy">
+        <cstring>editLatitudeNW</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="labelDescription">
+       <property name="text">
+        <string>&amp;Description:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+       </property>
+       <property name="buddy">
+        <cstring>editDescription</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="5">
+      <widget class="QPushButton" name="selectButton">
+       <property name="text">
+        <string>&amp;Select</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3" colspan="3">
+      <widget class="QLineEdit" name="editLongitudeNW"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="editLatitudeNW"/>
+     </item>
+     <item row="2" column="2">
+      <widget class="QLabel" name="labelLongitudeSE">
+       <property name="text">
+        <string>Longitude SE:</string>
+       </property>
+       <property name="buddy">
+        <cstring>editLongitudeSE</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="editLatitudeSE"/>
+     </item>
+     <item row="0" column="1" colspan="5">
+      <widget class="QLineEdit" name="editName"/>
+     </item>
+     <item row="4" column="1" colspan="4">
+      <widget class="QLineEdit" name="editPath"/>
+     </item>
+     <item row="5" column="1" colspan="5">
+      <widget class="QPlainTextEdit" name="editDescription"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QDialogButtonBox" name="dialogButtonBox">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>editName</tabstop>
+  <tabstop>editLatitudeNW</tabstop>
+  <tabstop>editLongitudeNW</tabstop>
+  <tabstop>editLatitudeSE</tabstop>
+  <tabstop>editLongitudeSE</tabstop>
+  <tabstop>editPath</tabstop>
+  <tabstop>selectButton</tabstop>
+  <tabstop>editDescription</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>dialogButtonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>EditLocationDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
