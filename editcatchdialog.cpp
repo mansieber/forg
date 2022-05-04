@@ -132,7 +132,7 @@ void EditCatchDialog::onEditLengthFinished()
         QSqlQuery query;
         QString sQuery = "SELECT * FROM Species WHERE id = %1";
         query.exec(sQuery.arg(speciesId));
-        qDebug() << "EditCatchDialog:editLengthFinished: species id = ";
+        qDebug() << "EditCatchDialog:editLengthFinished: species id = " << speciesId;
         if ( query.next() ) {
             double cf = query.value(FishModel::FishCFactor).toDouble();
             double weight = qPow(length, 3.0) * cf / 100.0;
