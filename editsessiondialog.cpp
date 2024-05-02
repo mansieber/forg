@@ -44,7 +44,7 @@ EditSessionDialog::EditSessionDialog(QSqlDatabase db, int id, QWidget *parent) :
     mapper->addMapping(ui->spinBoxRating, SessionProxyModel::SessionRating);
     mapper->addMapping(ui->editDescription, SessionProxyModel::SessionDescription);
 
-    if ( id != -1 ) {           // Edit an exisiting location
+    if ( id != -1 ) {           // Edit an exisiting session
         for ( int row = 0; row < sessionModel->rowCount(); ++row ) {
             QSqlRecord record = sessionModel->record(row);
             if ( record.value(SessionProxyModel::SessionId).toInt() == id ) {
