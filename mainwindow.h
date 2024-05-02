@@ -53,6 +53,7 @@ private slots:
     void onAnalysisYearTriggered();
     void onAnalysisWatersTriggered();
     void onSelectionWatersTriggered();
+    void onConsistencyCheckTriggered();
     void addSession();
     void editSession();
     void editSession(QModelIndex index);

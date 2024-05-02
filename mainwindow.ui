@@ -82,7 +82,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -121,10 +121,17 @@
     <addaction name="actionAnalysisWaters"/>
     <addaction name="actionZonalDistribution"/>
    </widget>
+   <widget class="QMenu" name="menuMaintenance">
+    <property name="title">
+     <string>Maintenance</string>
+    </property>
+    <addaction name="actionConsistencyCheck"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuView"/>
    <addaction name="menuAnalysis"/>
+   <addaction name="menuMaintenance"/>
   </widget>
   <action name="actionFile">
    <property name="text">
@@ -242,6 +249,11 @@
   <action name="actionZonalDistribution">
    <property name="text">
     <string>Zonal distribution of catches</string>
+   </property>
+  </action>
+  <action name="actionConsistencyCheck">
+   <property name="text">
+    <string>Consistency check</string>
    </property>
   </action>
  </widget>

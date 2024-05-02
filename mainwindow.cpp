@@ -43,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionAnalysisYear, SIGNAL(triggered()), this, SLOT(onAnalysisYearTriggered()));
     connect(ui->actionAnalysisWaters, SIGNAL(triggered()), this, SLOT(onAnalysisWatersTriggered()));
     connect(ui->actionZonalDistribution, SIGNAL(triggered()), this, SLOT(onSelectionWatersTriggered()));
+    connect(ui->actionConsistencyCheck, SIGNAL(triggered()), this, SLOT(onConsistencyCheckTriggered()));
     connect(ui->actionAddSession, SIGNAL(triggered()), this, SLOT(addSession()));
 
     openDatabase();         // What happens if data base is not accessible??????????
@@ -238,6 +239,15 @@ void MainWindow::onSelectionWatersTriggered()
         resultsDialog->exec();
     }
 }
+
+/*
+ * Create new consistency check dialog and show it.
+ */
+void MainWindow::onConsistencyCheckTriggered()
+{
+    QMessageBox::information(this, "Consistency Check", "Consistency check triggerd");
+}
+
 
 /*
  * Create the connection to the database and try to open it.
