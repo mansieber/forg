@@ -23,11 +23,13 @@ private slots:
     void onButtonBoxAccepted();
     void onEditLengthFinished();
     void onEditWeightFinished();
+    void onEditTimeFinished();
 
 private:
     Ui::EditCatchDialog *ui;
     CatchModel *catchModel;
     QDataWidgetMapper *mapper;
+    int findSessionId();
 };
 
 #endif // EDITCATCHDIALOG_H
