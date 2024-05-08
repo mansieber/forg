@@ -72,6 +72,7 @@ EditCatchDialog::EditCatchDialog(QSqlDatabase db, int id, QWidget *parent) :
     connect(ui->dialogButtonBox, SIGNAL(accepted()), this, SLOT(onButtonBoxAccepted()));
     connect(ui->editLength, SIGNAL(editingFinished()), this, SLOT(onEditLengthFinished()));
     connect(ui->editWeight, SIGNAL(editingFinished()), this, SLOT(onEditWeightFinished()));
+    connect(ui->editCatchTime, SIGNAL(editingFinished()), this, SLOT(onEditTimeFinished()));
 
     qDebug() << "EditCatchDialog: new catch dialog created; id = " << id;
 }
@@ -83,6 +84,7 @@ EditCatchDialog::~EditCatchDialog()
 {
     delete ui;
     delete catchModel;
+    delete mapper;
 }
 
 /*
@@ -90,23 +92,13 @@ EditCatchDialog::~EditCatchDialog()
  */
 void EditCatchDialog::onButtonBoxAccepted()
 {
-    int sessionId = -1;
-    QSqlQuery query;
-    QDateTime timeCatch = ui->editCatchTime->dateTime();
-    query.exec("SELECT * FROM Session");
-    while ( query.next() ) {
-        QDateTime timeStart = query.value(SessionProxyModel::SessionStartTime).toDateTime();
-        QDateTime timeEnd = query.value(SessionProxyModel::SessionEndTime).toDateTime();
-        if ( timeStart <= timeCatch && timeEnd >= timeCatch ) {
-            sessionId = query.value(SessionProxyModel::SessionId).toInt();
-            break;
-        }
-    }
-    if ( sessionId <= 0 ) {
+    int session = findSessionId();
+    if ( session <= 0 ) {
         qDebug() << "EditCatchDialog: no session found (session id <= 0!";
+        catchModel->setData(catchModel->index(mapper->currentIndex(), CatchModel::CatchSessionId), 0);
     } else {
-        qDebug() << "EditCatchDialog: session found: id = " << sessionId;
-        ui->comboSession->setCurrentIndex(sessionId - 1);  // The session id starts with 1, the combo box index with 0
+        qDebug() << "EditCatchDialog: session found: id = " << session;
+        catchModel->setData(catchModel->index(mapper->currentIndex(), CatchModel::CatchSessionId), session);
     }
     bool result = mapper->submit();
     catchModel->updateRow(mapper->currentIndex());         // All views must be updated
@@ -176,3 +168,42 @@ void EditCatchDialog::onEditWeightFinished()
         }
     }
 }
+
+/*
+ * Method (slot) is called when edit of the date/time is finished (also of dialog is closed).
+ * Method will search a session which fits to the catch date/time. If successful, the session
+ * id will be set.
+ */
+void EditCatchDialog::onEditTimeFinished()
+{
+    int session = findSessionId();
+    if ( session <= 0 ) {
+        qDebug() << "EditCatchDialog: no session found (session id <= 0!";
+        catchModel->setData(catchModel->index(mapper->currentIndex(), CatchModel::CatchSessionId), 0);
+    } else {
+        qDebug() << "EditCatchDialog: session found: id = " << session;
+        catchModel->setData(catchModel->index(mapper->currentIndex(), CatchModel::CatchSessionId), session);
+    }
+}
+
+/*
+ * Private method returns the id of the session which fits to the catch date & time.
+ * If no session is found -1 is returned.
+ */
+int EditCatchDialog::findSessionId()
+{
+    int sessionId = -1;
+    QSqlQuery query;
+    QDateTime timeCatch = ui->editCatchTime->dateTime();
+    query.exec("SELECT * FROM Session");
+    while ( query.next() ) {
+        QDateTime timeStart = query.value(SessionProxyModel::SessionStartTime).toDateTime();
+        QDateTime timeEnd = query.value(SessionProxyModel::SessionEndTime).toDateTime();
+        if ( timeStart <= timeCatch && timeEnd >= timeCatch ) {
+            sessionId = query.value(SessionProxyModel::SessionId).toInt();
+            break;
+        }
+    }
+    return sessionId;
+}
+
