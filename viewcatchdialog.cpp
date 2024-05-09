@@ -23,6 +23,7 @@ ViewCatchDialog::ViewCatchDialog(QSqlDatabase db, QWidget *parent) :
     connect(ui->catchTable, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(editCatch(QModelIndex)));
 
     catchModel = new CatchModel(this, db);
+    catchModel->setJoinMode(QSqlRelationalTableModel::LeftJoin);
     catchModel->setEditStrategy(QSqlTableModel::OnRowChange);
     catchModel->setTable("Catch");
     catchModel->setRelation(CatchModel::CatchSpeciesId, QSqlRelation("Species", "id", "name"));

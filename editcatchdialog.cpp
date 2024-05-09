@@ -18,6 +18,7 @@ EditCatchDialog::EditCatchDialog(QSqlDatabase db, int id, QWidget *parent) :
     ui->setupUi(this);
 
     catchModel = new CatchModel(this, db);
+    catchModel->setJoinMode(QSqlRelationalTableModel::LeftJoin);
     catchModel->setTable("Catch");
 
     catchModel->setRelation(CatchModel::CatchSessionId , QSqlRelation("Session", "id", "starttime"));
