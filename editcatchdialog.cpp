@@ -1,14 +1,21 @@
+/*
+ * Class realizes a dialog which allows to add and edit fish catch event. If the
+ * catch date and time fits to an already added fishing session the catch will
+ * automatically related to this fishing session.
+ */
+
 #include "editcatchdialog.h"
 #include "ui_editcatchdialog.h"
 #include "catchmodel.h"
 #include "sessionproxymodel.h"
 #include "fishmodel.h"
-#include "sortedcomboboxdelegate.h"
+// #include "sortedcomboboxdelegate.h"
 
 #include <QMessageBox>
 #include <QtDebug>
 #include <QSqlRecord>
 #include <QSqlQuery>
+#include <QSqlRelationalDelegate>
 #include <QtMath>
 
 EditCatchDialog::EditCatchDialog(QSqlDatabase db, int id, QWidget *parent) :
@@ -18,14 +25,13 @@ EditCatchDialog::EditCatchDialog(QSqlDatabase db, int id, QWidget *parent) :
     ui->setupUi(this);
 
     catchModel = new CatchModel(this, db);
+    catchModel->setJoinMode(QSqlRelationalTableModel::LeftJoin);
     catchModel->setTable("Catch");
 
     catchModel->setRelation(CatchModel::CatchSessionId , QSqlRelation("Session", "id", "starttime"));
-    QSqlTableModel *sessionModel = catchModel->relationModel(CatchModel::CatchSessionId);
-    ui->comboSession->setModel(sessionModel);
-    ui->comboSession->setModelColumn(sessionModel->fieldIndex("starttime"));
-
     catchModel->setRelation(CatchModel::CatchBaitId, QSqlRelation("Bait", "id", "name"));
+    catchModel->setSort(CatchModel::CatchBaitId, Qt::AscendingOrder); // Baits shall be sorted alphabetically
+
     QSqlTableModel *baitModel = catchModel->relationModel(CatchModel::CatchBaitId);
     ui->comboBait->setModel(baitModel);
     ui->comboBait->setModelColumn(baitModel->fieldIndex("name"));
@@ -41,9 +47,8 @@ EditCatchDialog::EditCatchDialog(QSqlDatabase db, int id, QWidget *parent) :
     mapper = new QDataWidgetMapper(this);
     mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
     mapper->setModel(catchModel);
-    mapper->setItemDelegate(new SortedComboBoxDelegate(this));
+    mapper->setItemDelegate(new QSqlRelationalDelegate(this));
     mapper->addMapping(ui->editCatchTime, CatchModel::CatchTime);
-    mapper->addMapping(ui->comboSession, CatchModel::CatchSessionId);
     mapper->addMapping(ui->comboSpecies, CatchModel::CatchSpeciesId);
     mapper->addMapping(ui->comboBait, CatchModel::CatchBaitId);
     mapper->addMapping(ui->editLength, CatchModel::CatchLength);
@@ -68,6 +73,9 @@ EditCatchDialog::EditCatchDialog(QSqlDatabase db, int id, QWidget *parent) :
         qDebug() << "EditCatchDialog: new row added" << ( result ? "successful" : "not successful");
         mapper->setCurrentIndex(row);
     }
+
+    ui->displaySession->setText(
+        sessionToString(catchModel->index(mapper->currentIndex(), CatchModel::CatchSessionId)));
 
     connect(ui->dialogButtonBox, SIGNAL(accepted()), this, SLOT(onButtonBoxAccepted()));
     connect(ui->editLength, SIGNAL(editingFinished()), this, SLOT(onEditLengthFinished()));
@@ -94,12 +102,15 @@ void EditCatchDialog::onButtonBoxAccepted()
 {
     int session = findSessionId();
     if ( session <= 0 ) {
-        qDebug() << "EditCatchDialog: no session found (session id <= 0!";
+        qDebug() << "EditCatchDialog: no session found! session id = " << session;
         catchModel->setData(catchModel->index(mapper->currentIndex(), CatchModel::CatchSessionId), 0);
     } else {
         qDebug() << "EditCatchDialog: session found: id = " << session;
         catchModel->setData(catchModel->index(mapper->currentIndex(), CatchModel::CatchSessionId), session);
     }
+
+    qDebug() << "EditCatchDialog: catch model session id: " << catchModel->data(catchModel->index(mapper->currentIndex(), CatchModel::CatchSessionId), Qt::DisplayRole);
+
     bool result = mapper->submit();
     catchModel->updateRow(mapper->currentIndex());         // All views must be updated
 
@@ -178,12 +189,18 @@ void EditCatchDialog::onEditTimeFinished()
 {
     int session = findSessionId();
     if ( session <= 0 ) {
-        qDebug() << "EditCatchDialog: no session found (session id <= 0!";
+        qDebug() << "EditCatchDialog: no session found! session id = " << session;
         catchModel->setData(catchModel->index(mapper->currentIndex(), CatchModel::CatchSessionId), 0);
     } else {
         qDebug() << "EditCatchDialog: session found: id = " << session;
         catchModel->setData(catchModel->index(mapper->currentIndex(), CatchModel::CatchSessionId), session);
     }
+
+    ui->displaySession->setText(
+        sessionToString(catchModel->index(mapper->currentIndex(), CatchModel::CatchSessionId)));
+
+    qDebug() << "EditCatchDialog: catch model session id: " << catchModel->data(catchModel->index(mapper->currentIndex(), CatchModel::CatchSessionId), Qt::DisplayRole);
+
 }
 
 /*
@@ -192,7 +209,7 @@ void EditCatchDialog::onEditTimeFinished()
  */
 int EditCatchDialog::findSessionId()
 {
-    int sessionId = -1;
+    int sessionId = 0;
     QSqlQuery query;
     QDateTime timeCatch = ui->editCatchTime->dateTime();
     query.exec("SELECT * FROM Session");
@@ -205,5 +222,23 @@ int EditCatchDialog::findSessionId()
         }
     }
     return sessionId;
+}
+
+/*
+ * Private method returns a string representing the session.
+ * The session is reflected by the start date/time. If no session exists an appropriate
+ * message is returned.
+ */
+QString EditCatchDialog::sessionToString(const QModelIndex cIndex)
+{
+    qDebug() << "EditCatchDialog::sessionToString(): data = " << (catchModel->data(cIndex)).toString();
+    if ( (catchModel->data(cIndex)).toString().isEmpty() ) {
+        return tr("No session");
+    } else {
+        QDateTime dateTime = QDateTime::fromString((catchModel->data(cIndex)).toString(),
+                                  "yyyy-MM-ddThh:mm:ss.zzz");
+        QString sDateTime = dateTime.date().toString("dd.MM.yy") + " " + dateTime.time().toString("hh.mm");
+        return sDateTime;
+    }
 }
 
