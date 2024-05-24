@@ -13,6 +13,8 @@ TEMPLATE = app
 
 RESOURCES = forg.qrc
 
+win32:RC_ICONS += forg.ico
+
 SOURCES += main.cpp\
         mainwindow.cpp \
     editbaitdialog.cpp \

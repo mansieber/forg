@@ -30,6 +30,7 @@ private:
     CatchModel *catchModel;
     QDataWidgetMapper *mapper;
     int findSessionId();
+    QString sessionToString(const QModelIndex cIndex);
 };
 
 #endif // EDITCATCHDIALOG_H
