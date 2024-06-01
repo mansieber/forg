@@ -5,6 +5,7 @@
 
 #include <QDialog>
 #include <QDataWidgetMapper>
+#include <QSortFilterProxyModel>
 #include <QSqlDatabase>
 
 namespace Ui {
@@ -24,10 +25,13 @@ private slots:
     void onEditLengthFinished();
     void onEditWeightFinished();
     void onEditTimeFinished();
+    void onComboBaitIndexChanged(int index);
 
 private:
     Ui::EditCatchDialog *ui;
     CatchModel *catchModel;
+    QSqlTableModel *baitModel;
+    QSortFilterProxyModel *sortedBaitModel;
     QDataWidgetMapper *mapper;
     int findSessionId();
     QString sessionToString(const QModelIndex cIndex);
