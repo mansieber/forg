@@ -7,6 +7,8 @@
 #include "editcatchdialog.h"
 #include "ui_editcatchdialog.h"
 #include "catchmodel.h"
+#include "sessionmodel.h"
+#include "baitmodel.h"
 #include "sessionproxymodel.h"
 #include "fishmodel.h"
 // #include "sortedcomboboxdelegate.h"
@@ -28,26 +30,22 @@ EditCatchDialog::EditCatchDialog(QSqlDatabase db, int id, QWidget *parent) :
     catchModel->setJoinMode(QSqlRelationalTableModel::LeftJoin);
     catchModel->setTable("Catch");
 
-    catchModel->setRelation(CatchModel::CatchSessionId , QSqlRelation("Session", "id", "starttime"));
+    catchModel->setRelation(CatchModel::CatchSessionId , QSqlRelation(SESSION_TABLE, SESSION_COLUMN_ID, SESSION_COLUMN_STARTTIME));
 
-    catchModel->setRelation(CatchModel::CatchBaitId, QSqlRelation("Bait", "id", "name"));
-//    catchModel->setSort(CatchModel::CatchBaitId, Qt::AscendingOrder); // Baits shall be sorted alphabetically
+    catchModel->setRelation(CatchModel::CatchBaitId, QSqlRelation(BAIT_TABLE, BAIT_COLUMN_ID, BAIT_COLUMN_NAME));
 
     baitModel = catchModel->relationModel(CatchModel::CatchBaitId);
-    sortedBaitModel = new QSortFilterProxyModel(this);
-    sortedBaitModel->setSourceModel(baitModel);
-    sortedBaitModel->sort(baitModel->fieldIndex("name"));
-    ui->comboBait->setModel(sortedBaitModel);
-    ui->comboBait->setModelColumn(
-//        baitModel->fieldIndex("name"));
-        sortedBaitModel->mapFromSource(baitModel->index(0, baitModel->fieldIndex("name"))).column());
-//    ui->comboBait->setModel(baitModel);
-//    ui->comboBait->setModelColumn(baitModel->fieldIndex("name"));
+    baitModel->setSort(BaitModel::BaitName, Qt::AscendingOrder); // Baits shall be sorted alphabetically
+    baitModel->select();
+    ui->comboBait->setModel(baitModel);
+    ui->comboBait->setModelColumn(BaitModel::BaitName);
 
-    catchModel->setRelation(CatchModel::CatchSpeciesId , QSqlRelation("Species", "id", "name"));
-    QSqlTableModel *speciesModel = catchModel->relationModel(CatchModel::CatchSpeciesId);
+    catchModel->setRelation(CatchModel::CatchSpeciesId , QSqlRelation(SPECIES_TABLE, SPECIES_COLUMN_ID, SPECIES_COLUMN_NAME));
+    speciesModel = catchModel->relationModel(CatchModel::CatchSpeciesId);
+    speciesModel->setSort(FishModel::FishName, Qt::AscendingOrder); // Species shall be sorted alphabetically
+    speciesModel->select();
     ui->comboSpecies->setModel(speciesModel);
-    ui->comboSpecies->setModelColumn(speciesModel->fieldIndex("name"));
+    ui->comboSpecies->setModelColumn(FishModel::FishName);
 
     if ( ! catchModel->select() ) {
         qCritical() << "No connection between CatchModel and database!";
@@ -89,7 +87,6 @@ EditCatchDialog::EditCatchDialog(QSqlDatabase db, int id, QWidget *parent) :
     connect(ui->editLength, SIGNAL(editingFinished()), this, SLOT(onEditLengthFinished()));
     connect(ui->editWeight, SIGNAL(editingFinished()), this, SLOT(onEditWeightFinished()));
     connect(ui->editCatchTime, SIGNAL(editingFinished()), this, SLOT(onEditTimeFinished()));
-    connect(ui->comboBait, QOverload<int>::of(&QComboBox::currentIndexChanged), this,  &EditCatchDialog::onComboBaitIndexChanged);
 
     qDebug() << "EditCatchDialog: new catch dialog created; id = " << id;
 }
@@ -101,7 +98,6 @@ EditCatchDialog::~EditCatchDialog()
 {
     delete ui;
     delete catchModel;
-    delete sortedBaitModel;
     delete mapper;
 }
 
@@ -211,36 +207,6 @@ void EditCatchDialog::onEditTimeFinished()
 
     qDebug() << "EditCatchDialog: catch model session id: " << catchModel->data(catchModel->index(mapper->currentIndex(), CatchModel::CatchSessionId), Qt::DisplayRole);
 
-}
-
-/*
- * Method (slot) is called when the index of the bait combo box changed.
- * Method will set the correct foreign key in the catch model.
- */
-void EditCatchDialog::onComboBaitIndexChanged(int index)
-{
-    qDebug() << "EditCatchDialog: bait combo box index changed to " << index;
-    qDebug() << "EditCatchDialog: sortedBaitModel at " << sortedBaitModel;
-    if (index != -1) {
-        if (index >= 0 && index < sortedBaitModel->rowCount()) {
-            qDebug() << "EditCatchDialog: sortedBaitModel row count:" << sortedBaitModel->rowCount();
-            QModelIndex proxyIndex = sortedBaitModel->index(index, 0);
-            qDebug() << "EditCatchDialog: proxyIndex " << proxyIndex;
-            QModelIndex sourceIndex = sortedBaitModel->mapToSource(proxyIndex);
-            qDebug() << "EditCatchDialog: sourceIndex " << sourceIndex;
-
-            int foreignKeyId = baitModel->data(sourceIndex.siblingAtColumn(baitModel->record().indexOf("id"))).toInt();
-            qDebug() << "EditCatchDialog: foreignKeyId " << foreignKeyId;
-            int currentRow = mapper->currentIndex();
-            qDebug() << "EditCatchDialog: currentRow " << currentRow;
-
-            QModelIndex modelIndex = catchModel->index(currentRow, CatchModel::CatchBaitId);
-            qDebug() << "EditCatchDialog: (catch)ModelIndex " << modelIndex;
-            catchModel->setData(modelIndex, foreignKeyId);
-        } else {
-            qDebug() << "EditCatchDialog: Index out of range:" << index;
-        }
-    }
 }
 
 /*

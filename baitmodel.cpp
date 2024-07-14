@@ -2,14 +2,14 @@
 
 #include <QtDebug>
 
-QList<QString> BaitModel::colors = QList<QString>() << QString(tr("blue")) << QString(tr("red"))
-                                                    << QString(tr("green")) << QString(tr("yellow"))
-                                                    << QString(tr("brown")) << QString(tr("black"))
-                                                    << QString(tr("white")) << QString(tr("grey"))
-                                                    <<QString(tr("gold")) << QString(tr("silver"))
-                                                   << QString(tr("transparent"));
-QList<QString> BaitModel::types = QList<QString>() << QString(tr("softbait")) << QString(tr("hardbait"))
-                                                   << QString(tr("fly")) << QString(tr("natural"));
+const QList<QString> BaitModel::colors = QList<QString>() << QString(tr("blue")) << QString(tr("red"))
+                                                        << QString(tr("green")) << QString(tr("yellow"))
+                                                        << QString(tr("brown")) << QString(tr("black"))
+                                                        << QString(tr("white")) << QString(tr("grey"))
+                                                        <<QString(tr("gold")) << QString(tr("silver"))
+                                                       << QString(tr("transparent"));
+const QList<QString> BaitModel::types = QList<QString>() << QString(tr("softbait")) << QString(tr("hardbait"))
+                                                       << QString(tr("fly")) << QString(tr("natural"));
 
 BaitModel::BaitModel(QObject *parent, QSqlDatabase db)
     : QSqlTableModel(parent, db)

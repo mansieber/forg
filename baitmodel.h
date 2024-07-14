@@ -6,6 +6,10 @@
 #include <QList>
 #include <QString>
 
+#define BAIT_TABLE "Bait"
+#define BAIT_COLUMN_NAME "name"
+#define BAIT_COLUMN_ID "id"
+
 class BaitModel : public QSqlTableModel
 {
     Q_OBJECT
@@ -19,8 +23,8 @@ public:
         BaitType = 4,
         BaitImage = 5
     };
-    static QList<QString> colors;
-    static QList<QString> types;
+    static const QList<QString> colors;
+    static const QList<QString> types;
     BaitModel(QObject *parent = 0, QSqlDatabase db = QSqlDatabase());
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     void updateRow(int row);

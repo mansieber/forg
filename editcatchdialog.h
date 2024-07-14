@@ -25,13 +25,11 @@ private slots:
     void onEditLengthFinished();
     void onEditWeightFinished();
     void onEditTimeFinished();
-    void onComboBaitIndexChanged(int index);
 
 private:
     Ui::EditCatchDialog *ui;
     CatchModel *catchModel;
-    QSqlTableModel *baitModel;
-    QSortFilterProxyModel *sortedBaitModel;
+    QSqlTableModel *baitModel, *speciesModel;
     QDataWidgetMapper *mapper;
     int findSessionId();
     QString sessionToString(const QModelIndex cIndex);

@@ -6,6 +6,10 @@
 #include <QList>
 #include <QString>
 
+#define SESSION_TABLE "Session"
+#define SESSION_COLUMN_STARTTIME "starttime"
+#define SESSION_COLUMN_ID "id"
+
 class SessionModel : public QSqlRelationalTableModel
 {
     Q_OBJECT
