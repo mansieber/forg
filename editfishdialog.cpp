@@ -1,6 +1,5 @@
 #include "editfishdialog.h"
 #include "ui_editfishdialog.h"
-#include "viewfishdialog.h"
 #include "fishmodel.h"
 #include "configuration.h"
 
@@ -17,7 +16,7 @@ EditFishDialog::EditFishDialog(QSqlDatabase db, int id, QWidget *parent) :
     ui->setupUi(this);
 
     fishModel = new FishModel(this, db);
-    fishModel->setTable("Species");
+    fishModel->setTable(SPECIES_TABLE);
     if ( ! fishModel->select() ) {
         qCritical() << "No connection between FishModel and database!";
     }

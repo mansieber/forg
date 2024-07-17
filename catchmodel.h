@@ -4,6 +4,8 @@
 #include <QSqlRelationalTableModel>
 #include <QSqlDatabase>
 
+#define CATCH_TABLE "Catch"
+
 class CatchModel : public QSqlRelationalTableModel
 {
     Q_OBJECT

@@ -6,6 +6,10 @@
 #include <QList>
 #include <QString>
 
+#define SPECIES_TABLE "Species"
+#define SPECIES_COLUMN_NAME "name"
+#define SPECIES_COLUMN_ID "id"
+
 class FishModel : public QSqlTableModel
 {
     Q_OBJECT

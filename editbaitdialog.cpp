@@ -20,7 +20,7 @@ EditBaitDialog::EditBaitDialog(QSqlDatabase db, int id, QWidget *parent) :
     ui->comboType->addItems(BaitModel::types);
 
     baitModel = new BaitModel(this, db);
-    baitModel->setTable("Bait");
+    baitModel->setTable(BAIT_TABLE);
     if ( ! baitModel->select() ) {
         qCritical() << "No connection between BaitModel and database!";
     }

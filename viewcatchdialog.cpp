@@ -1,6 +1,9 @@
 #include "viewcatchdialog.h"
 #include "ui_viewcatchdialog.h"
 #include "catchmodel.h"
+#include "fishmodel.h"
+#include "sessionmodel.h"
+#include "baitmodel.h"
 #include "imagedelegate.h"
 #include "datetimedelegate.h"
 #include "configuration.h"
@@ -25,13 +28,15 @@ ViewCatchDialog::ViewCatchDialog(QSqlDatabase db, QWidget *parent) :
     catchModel = new CatchModel(this, db);
     catchModel->setJoinMode(QSqlRelationalTableModel::LeftJoin);
     catchModel->setEditStrategy(QSqlTableModel::OnRowChange);
-    catchModel->setTable("Catch");
-    catchModel->setRelation(CatchModel::CatchSpeciesId, QSqlRelation("Species", "id", "name"));
-    catchModel->setRelation(CatchModel::CatchSessionId, QSqlRelation("Session", "id", "starttime"));
-    catchModel->setRelation(CatchModel::CatchBaitId, QSqlRelation("Bait", "id", "name"));
+    catchModel->setTable(CATCH_TABLE);
+    catchModel->setRelation(CatchModel::CatchSpeciesId,
+                            QSqlRelation(SPECIES_TABLE, SPECIES_COLUMN_ID, SPECIES_COLUMN_NAME));
+    catchModel->setRelation(CatchModel::CatchSessionId,
+                            QSqlRelation(SESSION_TABLE, SESSION_COLUMN_ID, SESSION_COLUMN_STARTTIME));
+    catchModel->setRelation(CatchModel::CatchBaitId,
+                            QSqlRelation(BAIT_TABLE, BAIT_COLUMN_ID, BAIT_COLUMN_NAME));
     catchModel->setEditStrategy(QSqlRelationalTableModel::OnRowChange);
-//    catchProxyModel = new CatchProxyModel(this);
-//    catchProxyModel->setSourceModel(catchModel);
+
     catchModel->setHeaderData(CatchModel::CatchTime, Qt::Horizontal, tr("Time"), Qt::DisplayRole);
     catchModel->setHeaderData(CatchModel::CatchSpeciesId, Qt::Horizontal, tr("Species"), Qt::DisplayRole);
     catchModel->setHeaderData(CatchModel::CatchLength , Qt::Horizontal, tr("Length [cm]"), Qt::DisplayRole);

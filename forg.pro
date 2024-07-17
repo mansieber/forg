@@ -16,6 +16,7 @@ RESOURCES = forg.qrc
 win32:RC_ICONS += forg.ico
 
 SOURCES += main.cpp\
+    catchesdelegate.cpp \
         mainwindow.cpp \
     editbaitdialog.cpp \
     viewbaitdialog.cpp \
@@ -35,9 +36,7 @@ SOURCES += main.cpp\
     editsessiondialog.cpp \
     viewcatchdialog.cpp \
     catchmodel.cpp \
-    catchesdelegate.cpp \
     editcatchdialog.cpp \
-    sortedcomboboxdelegate.cpp \
 	analysisyeardialog.cpp \
     analysisresultsdialog.cpp \
 	catchresult.cpp \
@@ -46,6 +45,7 @@ SOURCES += main.cpp\
     analysiszonaldistributiondialog.cpp
 
 HEADERS  += mainwindow.h \
+    catchesdelegate.h \
     editbaitdialog.h \
     viewbaitdialog.h \
     baitmodel.h \
@@ -64,9 +64,7 @@ HEADERS  += mainwindow.h \
     editsessiondialog.h \
     viewcatchdialog.h \
     catchmodel.h \
-    catchesdelegate.h \
     editcatchdialog.h \
-    sortedcomboboxdelegate.h \
 	analysisyeardialog.h \
     analysisresultsdialog.h \
 	catchresult.h \

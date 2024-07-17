@@ -5,6 +5,7 @@
 
 #include <QDialog>
 #include <QDataWidgetMapper>
+#include <QSortFilterProxyModel>
 #include <QSqlDatabase>
 
 namespace Ui {
@@ -28,6 +29,7 @@ private slots:
 private:
     Ui::EditCatchDialog *ui;
     CatchModel *catchModel;
+    QSqlTableModel *baitModel, *speciesModel;
     QDataWidgetMapper *mapper;
     int findSessionId();
     QString sessionToString(const QModelIndex cIndex);

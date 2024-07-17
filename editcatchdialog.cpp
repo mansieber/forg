@@ -7,9 +7,10 @@
 #include "editcatchdialog.h"
 #include "ui_editcatchdialog.h"
 #include "catchmodel.h"
+#include "sessionmodel.h"
+#include "baitmodel.h"
 #include "sessionproxymodel.h"
 #include "fishmodel.h"
-// #include "sortedcomboboxdelegate.h"
 
 #include <QMessageBox>
 #include <QtDebug>
@@ -28,18 +29,22 @@ EditCatchDialog::EditCatchDialog(QSqlDatabase db, int id, QWidget *parent) :
     catchModel->setJoinMode(QSqlRelationalTableModel::LeftJoin);
     catchModel->setTable("Catch");
 
-    catchModel->setRelation(CatchModel::CatchSessionId , QSqlRelation("Session", "id", "starttime"));
-    catchModel->setRelation(CatchModel::CatchBaitId, QSqlRelation("Bait", "id", "name"));
-    catchModel->setSort(CatchModel::CatchBaitId, Qt::AscendingOrder); // Baits shall be sorted alphabetically
+    catchModel->setRelation(CatchModel::CatchSessionId , QSqlRelation(SESSION_TABLE, SESSION_COLUMN_ID, SESSION_COLUMN_STARTTIME));
 
-    QSqlTableModel *baitModel = catchModel->relationModel(CatchModel::CatchBaitId);
+    catchModel->setRelation(CatchModel::CatchBaitId, QSqlRelation(BAIT_TABLE, BAIT_COLUMN_ID, BAIT_COLUMN_NAME));
+
+    baitModel = catchModel->relationModel(CatchModel::CatchBaitId);
+    baitModel->setSort(BaitModel::BaitName, Qt::AscendingOrder); // Baits shall be sorted alphabetically
+    baitModel->select();
     ui->comboBait->setModel(baitModel);
-    ui->comboBait->setModelColumn(baitModel->fieldIndex("name"));
+    ui->comboBait->setModelColumn(BaitModel::BaitName);
 
-    catchModel->setRelation(CatchModel::CatchSpeciesId , QSqlRelation("Species", "id", "name"));
-    QSqlTableModel *speciesModel = catchModel->relationModel(CatchModel::CatchSpeciesId);
+    catchModel->setRelation(CatchModel::CatchSpeciesId , QSqlRelation(SPECIES_TABLE, SPECIES_COLUMN_ID, SPECIES_COLUMN_NAME));
+    speciesModel = catchModel->relationModel(CatchModel::CatchSpeciesId);
+    speciesModel->setSort(FishModel::FishName, Qt::AscendingOrder); // Species shall be sorted alphabetically
+    speciesModel->select();
     ui->comboSpecies->setModel(speciesModel);
-    ui->comboSpecies->setModelColumn(speciesModel->fieldIndex("name"));
+    ui->comboSpecies->setModelColumn(FishModel::FishName);
 
     if ( ! catchModel->select() ) {
         qCritical() << "No connection between CatchModel and database!";

@@ -22,7 +22,7 @@ ViewFishDialog::ViewFishDialog(QSqlDatabase db, QWidget *parent) :
 
     fishModel = new FishModel(this, db);
     fishModel->setEditStrategy(QSqlTableModel::OnRowChange);
-    fishModel->setTable("Species");
+    fishModel->setTable(SPECIES_TABLE);
     fishModel->setHeaderData(FishModel::FishName, Qt::Horizontal, tr("Name"));
     fishModel->setHeaderData(FishModel::FishImage, Qt::Horizontal, tr("Image"));
     fishModel->setHeaderData(FishModel::FishCFactor, Qt::Horizontal, tr("Corp. factor"));
