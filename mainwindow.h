@@ -23,7 +23,6 @@
 #include "analysisyeardialog.h"
 #include "selectionwatersdialog.h"
 #include "datetimedelegate.h"
-#include "catchesdelegate.h"
 
 namespace Ui {
     class MainWindow;

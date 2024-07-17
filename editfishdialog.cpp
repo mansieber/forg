@@ -1,6 +1,5 @@
 #include "editfishdialog.h"
 #include "ui_editfishdialog.h"
-#include "viewfishdialog.h"
 #include "fishmodel.h"
 #include "configuration.h"
 

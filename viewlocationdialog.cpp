@@ -22,7 +22,7 @@ ViewLocationDialog::ViewLocationDialog(QSqlDatabase db, QWidget *parent) :
 
     locationModel = new LocationModel(this, db);
     locationModel->setEditStrategy(QSqlTableModel::OnRowChange);
-    locationModel->setTable("Location");
+    locationModel->setTable(LOCATION_TABLE);
     locationModel->setHeaderData(LocationModel::LocationName, Qt::Horizontal, tr("Name"));
     locationModel->setHeaderData(LocationModel::LocationLatitudeNW, Qt::Horizontal, tr("Latitude NW"));
     locationModel->setHeaderData(LocationModel::LocationLongitudeNW, Qt::Horizontal, tr("Longitude NW"));

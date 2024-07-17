@@ -4,6 +4,10 @@
 #include <QSqlTableModel>
 #include <QSqlDatabase>
 
+#define LOCATION_TABLE "Location"
+#define LOCATION_COLUMN_NAME "name"
+#define LOCATION_COLUMN_ID "id"
+
 class LocationModel : public QSqlTableModel
 {
     Q_OBJECT

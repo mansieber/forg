@@ -22,7 +22,7 @@ ViewBaitDialog::ViewBaitDialog(QSqlDatabase db, QWidget *parent) :
 
     baitModel = new BaitModel(this, db);
     baitModel->setEditStrategy(QSqlTableModel::OnRowChange);
-    baitModel->setTable("Bait");
+    baitModel->setTable(BAIT_TABLE);
     baitModel->setHeaderData(BaitModel::BaitName, Qt::Horizontal, tr("Name"));
     baitModel->setHeaderData(BaitModel::BaitSize, Qt::Horizontal, tr("Size"));
     baitModel->setHeaderData(BaitModel::BaitColor, Qt::Horizontal, tr("Color"));

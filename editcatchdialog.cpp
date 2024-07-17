@@ -11,7 +11,6 @@
 #include "baitmodel.h"
 #include "sessionproxymodel.h"
 #include "fishmodel.h"
-// #include "sortedcomboboxdelegate.h"
 
 #include <QMessageBox>
 #include <QtDebug>

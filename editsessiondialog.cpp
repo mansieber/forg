@@ -1,6 +1,7 @@
 #include "editsessiondialog.h"
 #include "ui_editsessiondialog.h"
 #include "sessionmodel.h"
+#include "locationmodel.h"
 #include "sessionproxymodel.h"
 
 #include <QMessageBox>
@@ -17,11 +18,14 @@ EditSessionDialog::EditSessionDialog(QSqlDatabase db, int id, QWidget *parent) :
     ui->comboWeather->addItems(SessionModel::weather);
 
     sessionModel = new SessionModel(this, db);
-    sessionModel->setTable("Session");
-    sessionModel->setRelation(SessionProxyModel::SessionLocationId, QSqlRelation("Location", "id", "name"));
-    QSqlTableModel *locationModel = sessionModel->relationModel(SessionProxyModel::SessionLocationId);
+    sessionModel->setTable(SESSION_TABLE);
+    sessionModel->setRelation(SessionProxyModel::SessionLocationId,
+                                QSqlRelation(LOCATION_TABLE, LOCATION_COLUMN_ID, LOCATION_COLUMN_NAME));
+    locationModel = sessionModel->relationModel(SessionProxyModel::SessionLocationId);
+    locationModel->setSort(LocationModel::LocationName, Qt::AscendingOrder); // Locations shall be sorted alphabetically
+    locationModel->select();
     ui->comboLocation->setModel(locationModel);
-    ui->comboLocation->setModelColumn(locationModel->fieldIndex("name"));
+    ui->comboLocation->setModelColumn(LocationModel::LocationName);
 
     if ( ! sessionModel->select() ) {
         qCritical() << "No connection between SessionModel and database!";

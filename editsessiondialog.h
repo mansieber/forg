@@ -25,6 +25,7 @@ private slots:
 private:
     Ui::EditSessionDialog *ui;
     SessionModel *sessionModel;
+    QSqlTableModel *locationModel;
     QDataWidgetMapper *mapper;
 };
 

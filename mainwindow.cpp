@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "sessionmodel.h"
 #include "sessionproxymodel.h"
+#include "catchesdelegate.h"
 #include "configuration.h"
 #include "analysisresultsdialog.h"
 #include "analysiszonaldistributiondialog.h"
