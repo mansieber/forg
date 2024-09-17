@@ -37,7 +37,7 @@ ViewLocationDialog::ViewLocationDialog(QSqlDatabase db, QWidget *parent) :
     ui->locationTable->setItemDelegateForColumn(LocationModel::LocationImage, imageDelegate = new ImageDelegate(this));
     imageDelegate->setAlternateImage(":/images/nolocation.png");
     imageDelegate->setImagePath(Configuration::getPathLocationImageFiles());
-    imageDelegate->setPreferredSize(200, 120);
+    imageDelegate->setPreferredSize(200, 100);
     ui->locationTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->locationTable->setColumnHidden(LocationModel::LocationId, true);
     ui->locationTable->setColumnHidden(LocationModel::LocationLatitude, true);
@@ -45,6 +45,7 @@ ViewLocationDialog::ViewLocationDialog(QSqlDatabase db, QWidget *parent) :
     ui->locationTable->sortByColumn(LocationModel::LocationName, Qt::AscendingOrder);
     ui->locationTable->resizeColumnsToContents();
     ui->locationTable->resizeRowsToContents();
+    ui->locationTable->setColumnWidth(LocationModel::LocationDescription, 320);
 }
 
 /*

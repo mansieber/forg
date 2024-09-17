@@ -60,9 +60,13 @@ ViewCatchDialog::ViewCatchDialog(QSqlDatabase db, QWidget *parent) :
     imageDelegate->setPreferredSize(128, 64);
     ui->catchTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->catchTable->setColumnHidden(CatchModel::CatchId, true);
+    ui->catchTable->setColumnHidden(CatchModel::CatchLatitude, true);
+    ui->catchTable->setColumnHidden(CatchModel::CatchLongitude, true);
     ui->catchTable->sortByColumn(CatchModel::CatchTime, Qt::AscendingOrder);
     ui->catchTable->resizeColumnsToContents();
     ui->catchTable->resizeRowsToContents();
+    ui->catchTable->setColumnWidth(CatchModel::CatchDescription, 230);
+    ui->catchTable->setColumnWidth(CatchModel::CatchBaitId, 230);
 }
 
 /*

@@ -41,6 +41,7 @@ ViewBaitDialog::ViewBaitDialog(QSqlDatabase db, QWidget *parent) :
     ui->baitTable->sortByColumn(BaitModel::BaitName, Qt::AscendingOrder);
     ui->baitTable->resizeColumnsToContents();
     ui->baitTable->resizeRowsToContents();
+
 }
 
 /*
