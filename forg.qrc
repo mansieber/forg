@@ -5,5 +5,6 @@
         <file>images/nolocation.png</file>
         <file>images/nocatch.png</file>
         <file>images/noimage.png</file>
+        <file>images/splashimage.jpg</file>
     </qresource>
 </RCC>

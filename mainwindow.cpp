@@ -6,6 +6,7 @@
 #include "configuration.h"
 #include "analysisresultsdialog.h"
 #include "analysiszonaldistributiondialog.h"
+#include "generalconstants.h"
 
 #include <QMessageBox>
 #include <QSqlDatabase>
@@ -45,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->actionAnalysisWaters, SIGNAL(triggered()), this, SLOT(onAnalysisWatersTriggered()));
     connect(ui->actionZonalDistribution, SIGNAL(triggered()), this, SLOT(onSelectionWatersTriggered()));
     connect(ui->actionConsistencyCheck, SIGNAL(triggered()), this, SLOT(onConsistencyCheckTriggered()));
+    connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(onAboutTriggered()));
     connect(ui->actionAddSession, SIGNAL(triggered()), this, SLOT(addSession()));
 
     openDatabase();         // What happens if data base is not accessible??????????
@@ -246,9 +248,16 @@ void MainWindow::onSelectionWatersTriggered()
  */
 void MainWindow::onConsistencyCheckTriggered()
 {
-    QMessageBox::information(this, "Consistency Check", "Consistency check triggerd");
+    QMessageBox::information(this, tr("Consistency Check"), tr("Consistency check triggerd"));
 }
 
+/*
+ * Create message box showing information about the application.
+ */
+void MainWindow::onAboutTriggered()
+{
+    QMessageBox::information(this, tr("About"), tr("%1 by %2\nVersion %3").arg(APPLICATION_NAME).arg(AUTHOR).arg(VERSION));
+}
 
 /*
  * Create the connection to the database and try to open it.
