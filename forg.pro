@@ -47,6 +47,7 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     catchesdelegate.h \
     editbaitdialog.h \
+    generalconstants.h \
     viewbaitdialog.h \
     baitmodel.h \
     configurationdialog.h \

@@ -1,11 +1,10 @@
 #include "mainwindow.h"
+#include "generalconstants.h"
 
 #include <QApplication>
 #include <QSplashScreen>
 #include <QTimer>
 #include <QtDebug>
-
-#define VERSION "1.0.0"
 
 void delay(int millis);
 
